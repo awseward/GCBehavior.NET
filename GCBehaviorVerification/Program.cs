@@ -10,11 +10,11 @@ namespace GCBehaviorVerification
         static void Main(string[] args)
         {
             _run(HoldNoReferences, "HoldNoReferences");
-            _run(HoldReferenceToPublisher1, "HoldReferenceToPublisher1");
-            _run(HoldReferenceToPublisher2, "HoldReferenceToPublisher2");
+            _run(HoldRefToPublisher1, "HoldRefToPublisher1");
+            _run(HoldRefToPublisher2, "HoldRefToPublisher2");
         }
 
-        private static void HoldReferenceToPublisher1()
+        private static void HoldRefToPublisher1()
         {
             var weakSub = new WeakReference(new AnonymousSubscriber());
             var weakPub = new WeakReference(((AnonymousSubscriber) weakSub.Target).InternalPublisher);
@@ -23,7 +23,7 @@ namespace GCBehaviorVerification
             _runTests(weakSub, weakPub);
         }
 
-        private static void HoldReferenceToPublisher2()
+        private static void HoldRefToPublisher2()
         {
             var weakSub = new WeakReference(new MethodSubscriber());
             var weakPub = new WeakReference(((MethodSubscriber) weakSub.Target).InternalPublisher);
@@ -44,6 +44,7 @@ namespace GCBehaviorVerification
         {
             Console.WriteLine("==== {0} ====", name);
             fn();
+            Console.WriteLine();
         }
 
         private static void _runTests(WeakReference weakSub, WeakReference weakPub)
