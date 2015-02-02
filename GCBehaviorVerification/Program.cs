@@ -67,37 +67,4 @@ namespace GCBehaviorVerification
             Console.WriteLine("{0} has been collected: {1}", name, !reference.IsAlive);
         }
     }
-
-    public class Publisher
-    {
-        public event EventHandler DidSomething;
-    }
-
-    public class PublisherHolder
-    {
-        protected Publisher _internalPublisher = new Publisher();
-
-        // Kind of breaks the idea, since if the publisher was truly 'internal',
-        // PublisherHolder wouldn't expose it like this, but we need to in order
-        // to play with the GC in different ways
-        public Publisher InternalPublisher { get { return _internalPublisher; } }
-    }
-
-    public class AnonymousSubscriber : PublisherHolder
-    {
-        public AnonymousSubscriber()
-        {
-            _internalPublisher.DidSomething += (sender, e) => { };
-        }
-    }
-
-    public class MethodSubscriber : PublisherHolder
-    {
-        public MethodSubscriber()
-        {
-            _internalPublisher.DidSomething += _internalPublisher_DidSomething;
-        }
-
-        private void _internalPublisher_DidSomething(object sender, EventArgs e) { }
-    }
 }
