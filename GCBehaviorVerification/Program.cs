@@ -15,6 +15,14 @@ namespace GCBehaviorVerification
             _run(HoldReferenceToPublisher_MethodSubscriber);
         }
 
+        private static void HoldNoReferences()
+        {
+            var weakSub = new WeakReference(new AnonymousSubscriber());
+            var weakPub = new WeakReference(((AnonymousSubscriber) weakSub.Target).InternalPublisher);
+
+            _test(weakSub, weakPub);
+        }
+
         private static void HoldReferenceToPublisher_AnonymousSubscriber()
         {
             var weakSub = new WeakReference(new AnonymousSubscriber());
@@ -29,14 +37,6 @@ namespace GCBehaviorVerification
             var weakSub = new WeakReference(new MethodSubscriber());
             var weakPub = new WeakReference(((MethodSubscriber) weakSub.Target).InternalPublisher);
             var publisher = ((MethodSubscriber) weakSub.Target).InternalPublisher;
-
-            _test(weakSub, weakPub);
-        }
-
-        private static void HoldNoReferences()
-        {
-            var weakSub = new WeakReference(new AnonymousSubscriber());
-            var weakPub = new WeakReference(((AnonymousSubscriber) weakSub.Target).InternalPublisher);
 
             _test(weakSub, weakPub);
         }
