@@ -18,12 +18,15 @@ somePublisher.SomeEvent += somePublisher_SomeEvent;
 ```csharp
 void somePublisher_SomeEvent(object sender, EventArgs e)
 {
-  ...
+    // Some code here...
 }
 ```
 * Via an anonymous delegate
 ```csharp
-somePublisher.SomeEvent += (sender, e) => { ... };
+somePublisher.SomeEvent += (sender, e) =>
+{
+    // Some code here...
+};
 ```
 
 The `MethodSubscriber` and `AnonymousSubscriber` classes each subscribe to a common base class, `Subscriber`. In that base class, a reference to a `Subscriber` has been instantiated.
