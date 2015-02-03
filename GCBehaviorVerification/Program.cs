@@ -11,17 +11,26 @@ namespace GCBehaviorVerification
     {
         static void Main(string[] args)
         {
-            Run(HoldNoReferences);
+            Run(HoldNoReferences_AnonymousSubscriber);
+            Run(HoldNoReferences_MethodSubscriber);
             Run(HoldReference_AnonymousSubscriber);
             Run(HoldReference_MethodSubscriber);
 
             Debugger.Break();
         }
 
-        private static void HoldNoReferences()
+        private static void HoldNoReferences_AnonymousSubscriber()
         {
             WeakReference weakSub = new WeakReference(new AnonymousSubscriber());
             WeakReference weakPub = new WeakReference(((AnonymousSubscriber) weakSub.Target).InternalPublisher);
+
+            Test(weakSub, weakPub);
+        }
+
+        private static void HoldNoReferences_MethodSubscriber()
+        {
+            WeakReference weakSub = new WeakReference(new MethodSubscriber());
+            WeakReference weakPub = new WeakReference(((MethodSubscriber) weakSub.Target).InternalPublisher);
 
             Test(weakSub, weakPub);
         }
@@ -44,10 +53,10 @@ namespace GCBehaviorVerification
             Test(weakSub, weakPub);
         }
 
-        private static void Run(Action fn)
+        private static void Run(Action actn)
         {
-            Console.WriteLine("==== {0} ====", fn.Method.Name);
-            fn();
+            Console.WriteLine("==== {0} ====", actn.Method.Name);
+            actn();
             Console.WriteLine();
         }
 
@@ -59,7 +68,7 @@ namespace GCBehaviorVerification
 
             check(sub);
             check(pub);
-            Console.WriteLine("Collecting...");
+            Console.WriteLine("Collecting garbage...");
             GC.Collect();
             check(sub);
             check(pub);
