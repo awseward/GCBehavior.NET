@@ -11,32 +11,32 @@ namespace GCBehaviorVerification
         static void Main(string[] args)
         {
             _run(HoldNoReferences);
-            _run(HoldReferenceToPublisher_AnonymousSubscriber);
-            _run(HoldReferenceToPublisher_MethodSubscriber);
+            _run(HoldReference_AnonymousSubscriber);
+            _run(HoldReference_MethodSubscriber);
         }
 
         private static void HoldNoReferences()
         {
-            var weakSub = new WeakReference(new AnonymousSubscriber());
-            var weakPub = new WeakReference(((AnonymousSubscriber) weakSub.Target).InternalPublisher);
+            WeakReference weakSub = new WeakReference(new AnonymousSubscriber());
+            WeakReference weakPub = new WeakReference(((AnonymousSubscriber) weakSub.Target).InternalPublisher);
 
             _test(weakSub, weakPub);
         }
 
-        private static void HoldReferenceToPublisher_AnonymousSubscriber()
+        private static void HoldReference_AnonymousSubscriber()
         {
-            var weakSub = new WeakReference(new AnonymousSubscriber());
-            var weakPub = new WeakReference(((AnonymousSubscriber) weakSub.Target).InternalPublisher);
-            var publisher = ((AnonymousSubscriber) weakSub.Target).InternalPublisher;
+            WeakReference weakSub = new WeakReference(new AnonymousSubscriber());
+            WeakReference weakPub = new WeakReference(((AnonymousSubscriber) weakSub.Target).InternalPublisher);
+            Publisher publisher = ((AnonymousSubscriber) weakSub.Target).InternalPublisher;
 
             _test(weakSub, weakPub);
         }
 
-        private static void HoldReferenceToPublisher_MethodSubscriber()
+        private static void HoldReference_MethodSubscriber()
         {
-            var weakSub = new WeakReference(new MethodSubscriber());
-            var weakPub = new WeakReference(((MethodSubscriber) weakSub.Target).InternalPublisher);
-            var publisher = ((MethodSubscriber) weakSub.Target).InternalPublisher;
+            WeakReference weakSub = new WeakReference(new MethodSubscriber());
+            WeakReference weakPub = new WeakReference(((MethodSubscriber) weakSub.Target).InternalPublisher);
+            Publisher publisher = ((MethodSubscriber) weakSub.Target).InternalPublisher;
 
             _test(weakSub, weakPub);
         }
