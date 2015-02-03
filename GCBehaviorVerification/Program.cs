@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -13,6 +14,8 @@ namespace GCBehaviorVerification
             _run(HoldNoReferences);
             _run(HoldReference_AnonymousSubscriber);
             _run(HoldReference_MethodSubscriber);
+
+            Debugger.Break();
         }
 
         private static void HoldNoReferences()
