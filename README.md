@@ -39,7 +39,7 @@ Now, let's consider a test of sorts. Using .NET's `WeakReference` so as not to a
 
 \*Of course at this stage, this seems silly to check. There's no reason either of these would have been collected immediately after being created, but let's check anyway.
 
-###### Testing `MethodSubscriber`
+##### Testing `MethodSubscriber`
 We expect that, after garbage collection, both objects we created (the `Publisher` and the `Subscriber`) got cleaned up by the GC. We can check this using the `IsAlive` property of each weak reference we held on to. If the property returns `false`, the object was collected.
 
 We would expect this outcome for the following reasons
