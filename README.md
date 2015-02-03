@@ -12,3 +12,6 @@ Let's consider two ways a `Subscriber` can attach a handler to a `Publisher`'s e
 
 1. Via an anonymous delegate
 2. Via a local method
+
+The `AnonymousSubscriber` and `MethodSubscriber` classes exist to illustrate examples of each way to subscribe, respectively. They each derive from the base `Subscriber` class and subscribe to an event belonging to a `Publisher` instance instantiated there.
+
