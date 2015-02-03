@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 
 namespace GCBehaviorVerification
@@ -9,27 +10,27 @@ namespace GCBehaviorVerification
     {
         static void Main(string[] args)
         {
-            _run(HoldNoReferences, "HoldNoReferences");
-            _run(HoldRefToPublisher1, "HoldRefToPublisher1");
-            _run(HoldRefToPublisher2, "HoldRefToPublisher2");
+            _run(HoldNoReferences);
+            _run(HoldReferenceToPublisher_AnonymousSubscriber);
+            _run(HoldReferenceToPublisher_MethodSubscriber);
         }
 
-        private static void HoldRefToPublisher1()
+        private static void HoldReferenceToPublisher_AnonymousSubscriber()
         {
             var weakSub = new WeakReference(new AnonymousSubscriber());
             var weakPub = new WeakReference(((AnonymousSubscriber) weakSub.Target).InternalPublisher);
             var publisher = ((AnonymousSubscriber) weakSub.Target).InternalPublisher;
 
-            _runTests(weakSub, weakPub);
+            _test(weakSub, weakPub);
         }
 
-        private static void HoldRefToPublisher2()
+        private static void HoldReferenceToPublisher_MethodSubscriber()
         {
             var weakSub = new WeakReference(new MethodSubscriber());
             var weakPub = new WeakReference(((MethodSubscriber) weakSub.Target).InternalPublisher);
             var publisher = ((MethodSubscriber) weakSub.Target).InternalPublisher;
 
-            _runTests(weakSub, weakPub);
+            _test(weakSub, weakPub);
         }
 
         private static void HoldNoReferences()
@@ -37,17 +38,17 @@ namespace GCBehaviorVerification
             var weakSub = new WeakReference(new AnonymousSubscriber());
             var weakPub = new WeakReference(((AnonymousSubscriber) weakSub.Target).InternalPublisher);
 
-            _runTests(weakSub, weakPub);
+            _test(weakSub, weakPub);
         }
 
-        private static void _run(Action fn, string name)
+        private static void _run(Action fn)
         {
-            Console.WriteLine("==== {0} ====", name);
+            Console.WriteLine("==== {0} ====", fn.Method.Name);
             fn();
             Console.WriteLine();
         }
 
-        private static void _runTests(WeakReference weakSub, WeakReference weakPub)
+        private static void _test(WeakReference weakSub, WeakReference weakPub)
         {
             _printStatus(weakSub, "weakSub");
             _printStatus(weakPub, "weakPub");
