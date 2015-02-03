@@ -26,7 +26,9 @@ void somePublisher_SomeEvent(object sender, EventArgs e)
 somePublisher.SomeEvent += (sender, e) => { ... };
 ```
 
-The `MethodSubscriber` and `AnonymousSubscriber` classes each subscribe to a common base class, `Subscriber`. In that base class, a reference to a `Subscriber` has been instantiated. The constructor of each child class immediately subscribes to its `Publishers`'s event, so that we have a subscription set up just by creating a `MethodSubscriber` or `AnonymousSubscriber`.
+The `MethodSubscriber` and `AnonymousSubscriber` classes each subscribe to a common base class, `Subscriber`. In that base class, a reference to a `Subscriber` has been instantiated.
+
+The constructor of each child class immediately subscribes to its `Publishers`'s event, so that we have a subscription set up just by creating a new `MethodSubscriber` or `AnonymousSubscriber`.
 
 ### Observing Pubs and Subs
 Now, let's consider a test of sorts. Using .NET's `WeakReference` so as not to affect garbage collection, the general steps are as follows:
