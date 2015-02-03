@@ -7,9 +7,9 @@ This demonstration involves two kinds of roles:
 * `Publishers`
 * `Subscribers`
 
-`Publishers` expose public events, and `Subscribers` subscribe to those events. We may also refer to them as pubs and subs.
+`Publishers` expose events to the world, and `Subscribers` subscribe to those events. We may also refer to them more casually as pubs and subs.
 
-Consider two ways a `Subscriber` can attach a handler to a `Publisher`'s event.
+Consider two ways a `Subscriber` can attach a handler to a `Publisher`'s event:
 
 * Via a local method
 ```csharp
