@@ -52,15 +52,12 @@ namespace GCBehaviorVerification
         {
             _printStatus(weakSub, "weakSub");
             _printStatus(weakPub, "weakPub");
-            _runGC();
+
+            Console.WriteLine("Collecting...");
+            GC.Collect();
+
             _printStatus(weakSub, "weakSub");
             _printStatus(weakPub, "weakPub");
-        }
-
-        private static void _runGC()
-        {
-            Console.WriteLine("Running GC...");
-            GC.Collect();
         }
 
         private static void _printStatus(WeakReference reference, string name)
