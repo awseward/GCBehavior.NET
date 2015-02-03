@@ -12,14 +12,14 @@ Let's consider two ways a `Subscriber` can attach a handler to a `Publisher`'s e
 
 * Via an anonymous delegate
 ```csharp
-someObject.SomeEvent += (sender, e) => { ... };
+somePublisher.SomeEvent += (sender, e) => { ... };
 ```
 * Via a local method
 ```csharp
-someObject.SomeEvent += someObject_SomeEvent;
+somePublisher.SomeEvent += somePublisher_SomeEvent;
 ```
 ```csharp
-void someObject_SomeEvent(object sender, EventArgs e)
+void somePublisher_SomeEvent(object sender, EventArgs e)
 {
   ...
 }
