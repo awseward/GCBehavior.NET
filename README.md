@@ -35,11 +35,10 @@ Now, let's consider a test of sorts. Using .NET's `WeakReference` so as not to a
 
 1. Create a weak reference to a `Subscriber` instance
 2. Create another weak reference to that `Subscriber`'s internal `Publisher` instance
-3. Check both of them to see if they've been garbage collected*
+3. Check both of them to see if they've been garbage collected
+  * Of course at this stage, this seems silly to check. There's no reason either of these would have been collected immediately after creation, but let's check anyway
 4. Force garbage collection
 5. Check both of them again to see if one or both was actually collected by the GC
-
-\*Of course at this stage, this seems silly to check. There's no reason either of these would have been collected immediately after being created, but let's check anyway.
 
 ##### Testing `MethodSubscriber`
 We expect that, after garbage collection, both objects we created (the `Publisher` and the `Subscriber`) got cleaned up by the GC. We can check this using the `IsAlive` property of each weak reference we held on to. If the property returns `false`, the object was collected.
