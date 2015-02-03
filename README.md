@@ -8,12 +8,8 @@ This demonstration involves two kinds of roles:
 
 `Publishers` expose public events, and `Subscribers` subscribe to those events.
 
-Let's consider two ways a `Subscriber` can attach a handler to a `Publisher`'s event.
+Consider two ways a `Subscriber` can attach a handler to a `Publisher`'s event.
 
-* Via an anonymous delegate
-```csharp
-somePublisher.SomeEvent += (sender, e) => { ... };
-```
 * Via a local method
 ```csharp
 somePublisher.SomeEvent += somePublisher_SomeEvent;
@@ -24,5 +20,9 @@ void somePublisher_SomeEvent(object sender, EventArgs e)
   ...
 }
 ```
+* Via an anonymous delegate
+```csharp
+somePublisher.SomeEvent += (sender, e) => { ... };
+```
 
-The `AnonymousSubscriber` and `MethodSubscriber` classes each subscribe to a `Publisher` instantiated in their common base class, `Subscriber`, using these two ways respectively.
+The `MethodSubscriber` and `AnonymousSubscriber` classes each subscribe to a `Publisher` instantiated in their common base class, `Subscriber`, using these two ways respectively.
