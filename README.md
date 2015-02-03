@@ -41,7 +41,7 @@ Now, let's consider a test of sorts. Using .NET's `WeakReference` so as not to a
 5. Check both of them again to see if one or both was actually collected by the GC
 
 ##### Testing `MethodSubscriber`
-We expect that, after garbage collection, both objects we created (the `Publisher` and the `Subscriber`) got cleaned up by the GC. We can check this using the `IsAlive` property of each weak reference we held on to. If the property returns `false`, the object was collected.
+We expect both objects we created (the `Publisher` and the `Subscriber`) to be cleaned up by the GC after step `4`. We can check this using the `IsAlive` property of each weak reference we held on to. If the property returns `false`, the object was collected.
 
 We would expect this outcome for the following reasons
 * Only the `Subscriber` holds any references to its `Publisher`
@@ -50,3 +50,4 @@ We would expect this outcome for the following reasons
 
 Sure enough, both objects are successfully collected.
   
+##### Testing `AnonymousSubscriber`
