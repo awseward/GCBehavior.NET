@@ -35,4 +35,4 @@ Now, let's consider a test we can perform with each one of these. Using .NET's `
 4. Force garbage collection
 5. Check both of them again to see if one or both was actually collected by the GC
 
-\* Of course at this stage, this seems silly to check. There's no reason either of these would have been collected immediately after being created, but let's check anyway.
+\*Of course at this stage, this seems silly to check. There's no reason either of these would have been collected immediately after being created, but let's check anyway.
