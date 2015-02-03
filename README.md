@@ -10,11 +10,11 @@ This demonstration involves two kinds of roles:
 
 Let's consider two ways a `Subscriber` can attach a handler to a `Publisher`'s event.
 
-1. Via an anonymous delegate
+* Via an anonymous delegate
 ```csharp
 someObject.SomeEvent += (sender, e) => { ... };
 ```
-2. Via a local method
+* Via a local method
 ```csharp
 someObject.SomeEvent += someObject_SomeEvent;
 ```
