@@ -25,5 +25,4 @@ void someObject_SomeEvent(object sender, EventArgs e)
 }
 ```
 
-The `AnonymousSubscriber` and `MethodSubscriber` classes each derive from the base `Subscriber` class and subscribe to an event belonging to a `Publisher` instance instantiated there using these two ways respectively.
-
+The `AnonymousSubscriber` and `MethodSubscriber` classes each subscribe to a `Publisher` instantiated in their base class, `Subscriber`, using these two ways, respectively.
