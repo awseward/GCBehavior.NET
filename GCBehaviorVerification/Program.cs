@@ -11,9 +11,9 @@ namespace GCBehaviorVerification
     {
         static void Main(string[] args)
         {
-            _run(HoldNoReferences);
-            _run(HoldReference_AnonymousSubscriber);
-            _run(HoldReference_MethodSubscriber);
+            Run(HoldNoReferences);
+            Run(HoldReference_AnonymousSubscriber);
+            Run(HoldReference_MethodSubscriber);
 
             Debugger.Break();
         }
@@ -23,7 +23,7 @@ namespace GCBehaviorVerification
             WeakReference weakSub = new WeakReference(new AnonymousSubscriber());
             WeakReference weakPub = new WeakReference(((AnonymousSubscriber) weakSub.Target).InternalPublisher);
 
-            _test(weakSub, weakPub);
+            Test(weakSub, weakPub);
         }
 
         private static void HoldReference_AnonymousSubscriber()
@@ -32,7 +32,7 @@ namespace GCBehaviorVerification
             WeakReference weakPub = new WeakReference(((AnonymousSubscriber) weakSub.Target).InternalPublisher);
             Publisher publisher = ((AnonymousSubscriber) weakSub.Target).InternalPublisher;
 
-            _test(weakSub, weakPub);
+            Test(weakSub, weakPub);
         }
 
         private static void HoldReference_MethodSubscriber()
@@ -41,29 +41,31 @@ namespace GCBehaviorVerification
             WeakReference weakPub = new WeakReference(((MethodSubscriber) weakSub.Target).InternalPublisher);
             Publisher publisher = ((MethodSubscriber) weakSub.Target).InternalPublisher;
 
-            _test(weakSub, weakPub);
+            Test(weakSub, weakPub);
         }
 
-        private static void _run(Action fn)
+        private static void Run(Action fn)
         {
             Console.WriteLine("==== {0} ====", fn.Method.Name);
             fn();
             Console.WriteLine();
         }
 
-        private static void _test(WeakReference weakSub, WeakReference weakPub)
+        private static void Test(WeakReference weakSub, WeakReference weakPub)
         {
-            _printStatus(weakSub, "weakSub");
-            _printStatus(weakPub, "weakPub");
+            var sub = new { Ref = weakSub, Name = "weakSub" };
+            var pub = new { Ref = weakPub, Name = "weakPub" };
+            Action<dynamic> check = anon => Print(anon.Ref, anon.Name);
 
+            check(sub);
+            check(pub);
             Console.WriteLine("Collecting...");
             GC.Collect();
-
-            _printStatus(weakSub, "weakSub");
-            _printStatus(weakPub, "weakPub");
+            check(sub);
+            check(pub);
         }
 
-        private static void _printStatus(WeakReference reference, string name)
+        private static void Print(WeakReference reference, string name)
         {
             Console.WriteLine("{0} has been collected: {1}", name, !reference.IsAlive);
         }
