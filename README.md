@@ -25,4 +25,4 @@ void someObject_SomeEvent(object sender, EventArgs e)
 }
 ```
 
-The `AnonymousSubscriber` and `MethodSubscriber` classes each subscribe to a `Publisher` instantiated in their common base class, `Subscriber`, using these two ways, respectively.
+The `AnonymousSubscriber` and `MethodSubscriber` classes each subscribe to a `Publisher` instantiated in their common base class, `Subscriber`, using these two ways respectively.
