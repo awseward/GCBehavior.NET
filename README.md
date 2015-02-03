@@ -27,7 +27,7 @@ somePublisher.SomeEvent += (sender, e) => { ... };
 
 The `MethodSubscriber` and `AnonymousSubscriber` classes each subscribe to a `Publisher` instantiated in their common base class, `Subscriber`, using these two approaches respectively.
 
-Now, let's consider a test we can perform with each one of these. Using .NET's `WeakReference` as as not to affect garbage collection, the general steps are as follows:
+Now, let's consider a test of sorts. Using .NET's `WeakReference` as as not to affect garbage collection, the general steps are as follows:
 
 1. Create a weak reference to a `Subscriber` instance
 2. Create another weak reference to that `Subscriber`'s internal `Publisher` instance
